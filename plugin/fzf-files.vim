@@ -88,7 +88,7 @@ enddef
 def ExtendPopupOptions(options: dict<any>): dict<any>
   var extensions =
     { minwidth:  (&columns * 0.8)->ceil()->float2nr(),
-      minheight: (&lines * 0.8)->ceil() ->float2nr() }
+      minheight: (&lines * 0.8)->ceil()->float2nr() }
 
   return options->extendnew(extensions)
 enddef
