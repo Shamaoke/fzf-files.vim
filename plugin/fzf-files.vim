@@ -67,14 +67,8 @@ def SetCloseCb(file: string): func(channel): string
 
     var commands: list<string>
 
-    if key == 'enter'
-      commands = [':$bwipeout', $"{config['commands']['enter']} {value}", $"call delete('{file}')"]
-    elseif key == 'ctrl-t'
-      commands = [':$bwipeout', $"{config['commands']['ctrl-t']} {value}", $"call delete('{file}')"]
-    elseif key == 'ctrl-s'
-      commands = [':$bwipeout', $"{config['commands']['ctrl-s']} {value}", $"call delete('{file}')"]
-    elseif key == 'ctrl-v'
-      commands = [':$bwipeout', $"{config['commands']['ctrl-v']} {value}", $"call delete('{file}')"]
+    if  config['commands']->keys()->index(key) != -1
+      commands = [':$bwipeout', config['commands'][key] .. ' ' .. value, $"call delete('{file}')"]
     else
       commands = [':$bwipeout', $":", $"call delete('{file}')"]
     endif
