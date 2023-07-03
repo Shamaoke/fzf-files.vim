@@ -4,6 +4,8 @@ vim9script
 ##                 ##
 
 var config = {
+  'fzf_default_command': $FZF_DEFAULT_COMMAND,
+
   'geometry': {
     'width': 0.8,
     'height': 0.8
@@ -77,7 +79,7 @@ def SetCloseCb(file: string): func(channel): string
 
 enddef
 
-def ExtendCommandOptions(options: list<string>): list<string>
+def ExtendTermCommandOptions(options: list<string>): list<string>
   var extensions = [ ]
 
   return options->extendnew(extensions)
@@ -102,28 +104,40 @@ def ExtendPopupOptions(options: dict<any>): dict<any>
   return options->extendnew(extensions)
 enddef
 
+def SetFzfCommand( ): void
+  var command: string
+
+  command = 'fd --type=file --color=always . || exit 0'
+
+  $FZF_DEFAULT_COMMAND = command
+enddef
+
+def RestoreFzfCommand( ): void
+  $FZF_DEFAULT_COMMAND = config->get('fzf_default_command')
+enddef
+
+def Start( ): void
+  term_start(
+    config
+      ->get('term_command')
+      ->ExtendTermCommandOptions(),
+    config
+      ->get('term_options')
+      ->ExtendTermOptions())
+    ->popup_create(
+        config
+          ->get('popup_options')
+          ->ExtendPopupOptions())
+enddef
+
 def FzfFF( ): void
-
-  var fzf_previous_default_command = $FZF_DEFAULT_COMMAND
-
-  $FZF_DEFAULT_COMMAND = 'fd --type=file --color=always . || exit 0'
+  SetFzfCommand()
 
   try
-    term_start(
-      config
-        ->get('term_command')
-        ->ExtendCommandOptions(),
-      config
-        ->get('term_options')
-        ->ExtendTermOptions())
-      ->popup_create(
-          config
-            ->get('popup_options')
-            ->ExtendPopupOptions())
+    Start()
   finally
-    $FZF_DEFAULT_COMMAND = fzf_previous_default_command
+    RestoreFzfCommand()
   endtry
-
 enddef
 
 command FzfFF FzfFF()
