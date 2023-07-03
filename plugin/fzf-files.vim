@@ -9,7 +9,7 @@ var config = {
     'height': 0.8
   },
 
-  'command': [
+  'term_command': [
     'fzf',
     '--no-multi',
     '--preview-window=border-left',
@@ -111,7 +111,7 @@ def FzfFF( ): void
   try
     term_start(
       config
-        ->get('command')
+        ->get('term_command')
         ->ExtendCommandOptions(),
       config
         ->get('term_options')
