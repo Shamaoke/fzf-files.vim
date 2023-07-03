@@ -12,10 +12,10 @@ var config = {
   },
 
   'commands': {
-    'enter': 'edit',
-    'ctrl-t': 'tabedit',
-    'ctrl-s': 'split',
-    'ctrl-v': 'vsplit'
+    'enter': (value) => $"edit {value}",
+    'ctrl-t': (value) => $"tabedit {value}",
+    'ctrl-s': (value) => $"split {value}",
+    'ctrl-v': (value) => $"vsplit {value}"
   },
 
   'term_command': [
@@ -67,8 +67,8 @@ def SetCloseCb(file: string): func(channel): string
 
     var commands: list<string>
 
-    if  config['commands']->keys()->index(key) != -1
-      commands = [':$bwipeout', config['commands'][key] .. ' ' .. value, $"call delete('{file}')"]
+    if config['commands']->keys()->index(key) != -1
+      commands = [':$bwipeout', config['commands'][key](value), $"call delete('{file}')"]
     else
       commands = [':$bwipeout', $":", $"call delete('{file}')"]
     endif
