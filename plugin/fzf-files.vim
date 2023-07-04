@@ -61,7 +61,7 @@ def SetCloseCb(file: string): func(channel): string
     var data: list<string> = readfile(file)
 
     if data->len() < 2
-      return execute([':$bwipeout', ':', $"call delete('{file}')"])
+      return execute([':$bwipeout', $"call delete('{file}')"])
     endif
 
     var key   = data->get(0)
@@ -72,7 +72,7 @@ def SetCloseCb(file: string): func(channel): string
     if config['commands']->keys()->index(key) != -1
       commands = [':$bwipeout', config['commands'][key](entry), $"call delete('{file}')"]
     else
-      commands = [':$bwipeout', $":", $"call delete('{file}')"]
+      commands = [':$bwipeout', $"call delete('{file}')"]
     endif
 
     return execute(commands)
