@@ -111,7 +111,7 @@ def RestoreFzfCommand( ): void
   $FZF_DEFAULT_COMMAND = config->get('fzf_default_command')
 enddef
 
-def Start( ): void
+def CreateFzfPopup( ): void
   term_start(
     config
       ->get('term_command')
@@ -125,16 +125,16 @@ def Start( ): void
           ->ExtendPopupOptions())
 enddef
 
-def FzfFF( ): void
+def Run( ): void
   SetFzfCommand()
 
   try
-    Start()
+    CreateFzfPopup()
   finally
     RestoreFzfCommand()
   endtry
 enddef
 
-command FzfFF FzfFF()
+command FzfFF Run()
 
 # vim: set textwidth=80 colorcolumn=80:
