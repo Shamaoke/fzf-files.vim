@@ -26,7 +26,7 @@ var config = {
     '--preview-window=border-left',
     '--preview=bat --color=always --style=numbers {1}',
     '--ansi',
-    '--expect=esc,enter,ctrl-t,ctrl-s,ctrl-v'
+    '--expect=enter,ctrl-t,ctrl-s,ctrl-v'
   ],
 
   'term_options': {
@@ -69,11 +69,7 @@ def SetCloseCb(file: string): func(channel): string
 
     var commands: list<string>
 
-    if config['commands']->keys()->index(key) != -1
-      commands = [':$bwipeout', config['commands'][key](entry), $"call delete('{file}')"]
-    else
-      commands = [':$bwipeout', $"call delete('{file}')"]
-    endif
+    commands = [':$bwipeout', config['commands'][key](entry), $"call delete('{file}')"]
 
     return execute(commands)
   enddef
