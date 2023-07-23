@@ -8,7 +8,7 @@ import 'fzf-run.vim' as Fzf
 var spec = {
   'fzf_default_command': $FZF_DEFAULT_COMMAND,
 
-  'set_fzf_data': ( ) => 'fd --type=file --color=always .',
+  'set_fzf_data': ( ) => 'fd --type=file --no-ignore --color=always .',
 
   'set_fzf_command': (data) => $"{data} || exit 0",
 
