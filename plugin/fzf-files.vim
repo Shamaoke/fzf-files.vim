@@ -32,7 +32,7 @@ var spec = {
     '--preview-window=border-left',
     '--preview=bat --color=always --style=numbers {1}',
     '--ansi',
-    '--bind=alt-j:preview-down,alt-k:preview-up',
+    '--bind=alt-j:preview-down,alt-k:preview-up,alt-p:toggle-preview',
     '--expect=enter,ctrl-t,ctrl-s,ctrl-v'
   ],
 
