@@ -6,13 +6,13 @@ vim9script
 import 'fzf-run.vim' as Fzf
 
 var spec = {
-  'fzf_default_command': $FZF_DEFAULT_COMMAND,
-
-  'set_fzf_data': ( ) => 'fd --type=file --no-ignore --color=always .',
-
-  'set_fzf_command': (data) => $"{data} || exit 0",
+  'set_fzf_data': (data) =>
+    system('fd --type=file --no-ignore --color=always .')
+      ->split('\n')
+      ->writefile(data),
 
   'set_tmp_file': ( ) => tempname(),
+  'set_tmp_data': ( ) => tempname(),
 
   'geometry': {
     'width': 0.8,
@@ -36,7 +36,8 @@ var spec = {
     '--expect=enter,ctrl-t,ctrl-s,ctrl-v'
   ],
 
-  'set_term_command_options': ( ) => [ ],
+  'set_term_command_options': (data) =>
+    [ $"--bind=start:reload^cat {data}^"],
 
   'term_options': {
     'hidden': true,
