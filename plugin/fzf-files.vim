@@ -37,7 +37,7 @@ var spec = {
   ],
 
   'set_term_command_options': (data) =>
-    [ $"--bind=start:reload^cat {data}^"],
+    [ $"--bind=start:reload^cat {data}^" ],
 
   'term_options': {
     'hidden': true,
