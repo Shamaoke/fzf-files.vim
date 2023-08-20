@@ -20,10 +20,10 @@ var spec = {
   },
 
   'commands': {
-    'enter':  (entry) => $"edit {entry}",
-    'ctrl-t': (entry) => $"tabedit {entry}",
-    'ctrl-s': (entry) => $"split {entry}",
-    'ctrl-v': (entry) => $"vsplit {entry}"
+    'enter':  (entry) => $"edit {entry->split('\t')->reverse()->join('')}",
+    'ctrl-t': (entry) => $"tabedit {entry->split('\t')->reverse()->join('')}",
+    'ctrl-s': (entry) => $"split {entry->split('\t')->reverse()->join('')}",
+    'ctrl-v': (entry) => $"vsplit {entry->split('\t')->reverse()->join('')}"
   },
 
   'term_command': [
