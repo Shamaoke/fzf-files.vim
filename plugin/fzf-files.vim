@@ -7,7 +7,7 @@ import 'fzf-run.vim' as Fzf
 
 var spec = {
   'set_fzf_data': (data) =>
-    system('fd --type=file --no-ignore --color=always .')
+    system("find $PWD -type f -printf '%f\t%h/\n' | sort --version-sort --key=1")
       ->split('\n')
       ->writefile(data),
 
@@ -30,14 +30,16 @@ var spec = {
     'fzf',
     '--no-multi',
     '--preview-window=border-left',
-    '--preview=bat --color=always --style=numbers {1}',
+    '--preview=bat --color=always --style=numbers {2}{1}',
     '--ansi',
-    '--bind=alt-j:preview-down,alt-k:preview-up,alt-p:toggle-preview',
+    '--delimiter=\t',
+    '--tabstop=1',
+    '--bind=alt-j:preview-down,alt-k:preview-up,alt-h:first,alt-e:last,alt-p:toggle-preview',
     '--expect=enter,ctrl-t,ctrl-s,ctrl-v'
   ],
 
   'set_term_command_options': (data) =>
-    [ $"--bind=start:reload^cat '{data}'^" ],
+    [ $"--bind=start:reload^cat '{data}' | column --table --separator='\t' --output-separator='\t'^" ],
 
   'term_options': {
     'hidden': true,
