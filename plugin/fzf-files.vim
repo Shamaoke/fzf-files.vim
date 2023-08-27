@@ -7,7 +7,7 @@ import 'fzf-run.vim' as Fzf
 
 var spec = {
   'set_fzf_data': (data) =>
-    system("find $PWD -type f -printf '%f\t%h/\n' | sort --version-sort --key=1")
+    system("find $PWD -name '.?*' -prune -or -type f -printf '%f\t%h/\n' | sort --version-sort --key=1")
       ->split('\n')
       ->writefile(data),
 
