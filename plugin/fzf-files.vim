@@ -34,7 +34,7 @@ var spec = {
     '--ansi',
     '--delimiter=\t',
     '--tabstop=1',
-    '--bind=alt-j:preview-down,alt-k:preview-up,alt-h:first,alt-e:last,alt-p:toggle-preview',
+    '--bind=alt-j:preview-down,alt-k:preview-up,alt-h:first,alt-e:last,alt-p:toggle-preview,alt-e:change-preview-window(right,90%|right,50%)',
     '--expect=enter,ctrl-t,ctrl-s,ctrl-v'
   ],
 
