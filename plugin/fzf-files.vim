@@ -29,6 +29,7 @@ var spec = {
   'term_command': [
     'fzf',
     '--no-multi',
+    '--walker-skip=.git,node_modules,tmp,vendor',
     '--preview-window=border-left',
     '--preview=bat --color=always --style=numbers {2}{1}',
     '--ansi',
