@@ -7,7 +7,7 @@ import 'fzf-run.vim' as Fzf
 
 var spec = {
   'set_fzf_data': (data) =>
-    system("find $PWD/*(N) -name '.?*' -prune -or -type f -printf '%f\t%h/\n' | sort --version-sort --key=1")
+    system("find $PWD/*(N) -name '.?*' -prune -or -path $PWD/tmp -prune -or -path $PWD/vendor -prune -or -path $PWD/node_modules -prune -or -type f -printf '%f\t%h/\n' | sort --version-sort --key=1")
       ->split('\n')
       ->writefile(data),
 
@@ -29,7 +29,6 @@ var spec = {
   'term_command': [
     'fzf',
     '--no-multi',
-    '--walker-skip=.git,node_modules,tmp,vendor',
     '--preview-window=border-left',
     '--preview=bat --color=always --style=numbers {2}{1}',
     '--ansi',
