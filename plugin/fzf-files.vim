@@ -5,9 +5,33 @@ vim9script
 
 import 'fzf-run.vim' as Fzf
 
+var find_string =
+  "find " ..
+  "$PWD/*(N) " ..
+  "-name '.?*' " ..
+  "-prune " ..
+  "-or " ..
+  "-path \"$PWD/target\" " ..
+  "-prune " ..
+  "-or " ..
+  "-path \"$PWD/tmp\" " ..
+  "-prune " ..
+  "-or " ..
+  "-path \"$PWD/vendor\" " ..
+  "-prune " ..
+  "-or " ..
+  "-path \"$PWD/node_modules\" " ..
+  "-prune " ..
+  "-or " ..
+  "-type f " ..
+  "-printf '%f\t%h/\n'"
+
+var sort_string =
+  "sort --version-sort --key=1"
+
 var spec = {
   'set_fzf_data': (data) =>
-    system("find $PWD/*(N) -name '.?*' -prune -or -path $PWD/tmp -prune -or -path $PWD/vendor -prune -or -path $PWD/node_modules -prune -or -type f -printf '%f\t%h/\n' | sort --version-sort --key=1")
+    system($"{find_string} | {sort_string}")
       ->split('\n')
       ->writefile(data),
 
@@ -55,4 +79,3 @@ var spec = {
 
 command FzfFF Fzf.Run(spec)
 
-# vim: set textwidth=80 colorcolumn=80:
